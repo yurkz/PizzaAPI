@@ -163,12 +163,15 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PizzaController.cs" />
     <Compile Include="Controllers\PizzaTypeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DTOs\PizzaDTO.cs" />
     <Compile Include="DTOs\PizzaTypeDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IPizza.cs" />
     <Compile Include="Interfaces\IPizzaType.cs" />
     <Compile Include="Models\EDMX.Context.cs">
       <AutoGen>True</AutoGen>
@@ -197,6 +200,7 @@
     <Compile Include="Models\pizza_types.cs">
       <DependentUpon>EDMX.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repository\PizzaRepository.cs" />
     <Compile Include="Models\Repository\PizzaTypeRepository.cs" />
     <Compile Include="Models\ServiceResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
