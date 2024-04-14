@@ -23,7 +23,7 @@ namespace PizzaAPI.Models
         public string pizza_id { get; set; }
         public string pizza_type_id { get; set; }
         public string size { get; set; }
-        public Nullable<decimal> price { get; set; }
+        public decimal price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<order_details> order_details { get; set; }

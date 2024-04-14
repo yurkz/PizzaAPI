@@ -163,14 +163,19 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PizzaController.cs" />
     <Compile Include="Controllers\PizzaTypeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DTOs\OrderDetailsDTO.cs" />
+    <Compile Include="DTOs\OrderDTO.cs" />
     <Compile Include="DTOs\PizzaDTO.cs" />
     <Compile Include="DTOs\PizzaTypeDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IOrderDetails.cs" />
+    <Compile Include="Interfaces\IOrder.cs" />
     <Compile Include="Interfaces\IPizza.cs" />
     <Compile Include="Interfaces\IPizzaType.cs" />
     <Compile Include="Models\EDMX.Context.cs">
@@ -200,6 +205,8 @@
     <Compile Include="Models\pizza_types.cs">
       <DependentUpon>EDMX.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repository\OrderDetailsRepository.cs" />
+    <Compile Include="Models\Repository\OrderRepository.cs" />
     <Compile Include="Models\Repository\PizzaRepository.cs" />
     <Compile Include="Models\Repository\PizzaTypeRepository.cs" />
     <Compile Include="Models\ServiceResponse.cs" />

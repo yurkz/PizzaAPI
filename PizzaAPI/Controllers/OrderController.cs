@@ -11,22 +11,22 @@ using PizzaAPI.Models.Repository;
 
 namespace PizzaAPI.Controllers
 {
-    [RoutePrefix("api/pizza")]
-    public class PizzaController : ApiController
+    [RoutePrefix("api/order")]
+    public class OrderController : ApiController
     {
-        PizzaRepository repo = new PizzaRepository();
+        OrderRepository repo = new OrderRepository();
 
 
         [HttpGet]
         [Route("")]
-        public ServiceResponse<List<PizzaDTO>> GetAll()
+        public ServiceResponse<List<OrderDTO>> GetAll()
         {
             return repo.GetAll();
         }
 
         [HttpGet]
         [Route("GetById")]
-        public ServiceResponse<PizzaDTO> GetById(PizzaDTO model)
+        public ServiceResponse<OrderDTO> GetById(OrderDTO model)
         {
             return repo.GetById(model);
         }
@@ -34,24 +34,24 @@ namespace PizzaAPI.Controllers
 
         [HttpPost]
         [Route("")]
-        public ServiceResponse<PizzaDTO> AddPizza(PizzaDTO model)
+        public ServiceResponse<AddOrderDTO> AddPizza(AddOrderDTO model)
         {
-            return repo.AddPizza(model);
+            return repo.AddOrder(model);
         }
 
         [HttpDelete]
         [Route("")]
-        public ServiceResponse<PizzaDTO> DeletePizza(PizzaDTO model)
+        public ServiceResponse<OrderDTO> DeletePizza(OrderDTO model)
         {
-            return repo.DeletePizza(model);
+            return repo.DeleteOrder(model);
         }
 
 
         [HttpPut]
         [Route("")]
-        public ServiceResponse<PizzaDTO> UpdatePizza(PizzaDTO model)
+        public ServiceResponse<OrderDTO> UpdatePizza(OrderDTO model)
         {
-            return repo.UpdatePizza(model);
+            return repo.UpdateOrder(model);
         }
 
 

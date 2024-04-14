@@ -4,44 +4,44 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PizzaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PizzaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="order_details">
           <Key>
             <PropertyRef Name="order_details_id" />
           </Key>
           <Property Name="order_details_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="order_id" Type="bigint" />
-          <Property Name="pizza_id" Type="varchar" MaxLength="50" />
-          <Property Name="quantity" Type="bigint" />
+          <Property Name="order_id" Type="bigint" Nullable="false" />
+          <Property Name="pizza_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="quantity" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="orders">
           <Key>
             <PropertyRef Name="order_id" />
           </Key>
           <Property Name="order_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="date" Type="datetime" />
-          <Property Name="time" Type="time" Precision="7" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="time" Type="time" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="pizza_types">
           <Key>
             <PropertyRef Name="pizza_type_id" />
           </Key>
           <Property Name="pizza_type_id" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="50" />
-          <Property Name="category" Type="varchar" MaxLength="50" />
-          <Property Name="ingredients" Type="varchar" MaxLength="500" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="category" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ingredients" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="pizzas">
           <Key>
             <PropertyRef Name="pizza_id" />
           </Key>
           <Property Name="pizza_id" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="pizza_type_id" Type="varchar" MaxLength="50" />
-          <Property Name="size" Type="varchar" MaxLength="50" />
-          <Property Name="price" Type="decimal" Precision="28" Scale="0" />
+          <Property Name="pizza_type_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="size" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="28" Scale="0" Nullable="false" />
         </EntityType>
-        <Association Name="FK_order_details_order_details">
-          <End Role="orders" Type="Self.orders" Multiplicity="0..1" />
+        <Association Name="FK_order_details_orders">
+          <End Role="orders" Type="Self.orders" Multiplicity="1" />
           <End Role="order_details" Type="Self.order_details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="orders">
@@ -53,7 +53,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_order_details_pizzas">
-          <End Role="pizzas" Type="Self.pizzas" Multiplicity="0..1" />
+          <End Role="pizzas" Type="Self.pizzas" Multiplicity="1" />
           <End Role="order_details" Type="Self.order_details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pizzas">
@@ -65,7 +65,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_pizzas_pizza_types">
-          <End Role="pizza_types" Type="Self.pizza_types" Multiplicity="0..1" />
+          <End Role="pizza_types" Type="Self.pizza_types" Multiplicity="1" />
           <End Role="pizzas" Type="Self.pizzas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pizza_types">
@@ -81,7 +81,7 @@
           <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pizza_types" EntityType="Self.pizza_types" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pizzas" EntityType="Self.pizzas" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_order_details_order_details" Association="Self.FK_order_details_order_details">
+          <AssociationSet Name="FK_order_details_orders" Association="Self.FK_order_details_orders">
             <End Role="orders" EntitySet="orders" />
             <End Role="order_details" EntitySet="order_details" />
           </AssociationSet>
@@ -94,57 +94,74 @@
             <End Role="pizzas" EntitySet="pizzas" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PizzaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PizzaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="order_details" EntityType="PizzaModel.order_details" />
+          <EntitySet Name="orders" EntityType="PizzaModel.order" />
+          <EntitySet Name="pizza_types" EntityType="PizzaModel.pizza_types" />
+          <EntitySet Name="pizzas" EntityType="PizzaModel.pizza" />
+          <AssociationSet Name="FK_order_details_orders" Association="PizzaModel.FK_order_details_orders">
+            <End Role="order" EntitySet="orders" />
+            <End Role="order_details" EntitySet="order_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_details_pizzas" Association="PizzaModel.FK_order_details_pizzas">
+            <End Role="pizza" EntitySet="pizzas" />
+            <End Role="order_details" EntitySet="order_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pizzas_pizza_types" Association="PizzaModel.FK_pizzas_pizza_types">
+            <End Role="pizza_types" EntitySet="pizza_types" />
+            <End Role="pizza" EntitySet="pizzas" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="order_details">
           <Key>
             <PropertyRef Name="order_details_id" />
           </Key>
           <Property Name="order_details_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="order_id" Type="Int64" />
-          <Property Name="pizza_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="quantity" Type="Int64" />
-          <NavigationProperty Name="order" Relationship="Self.FK_order_details_order_details" FromRole="order_details" ToRole="orders" />
-          <NavigationProperty Name="pizza" Relationship="Self.FK_order_details_pizzas" FromRole="order_details" ToRole="pizzas" />
+          <Property Name="order_id" Type="Int64" Nullable="false" />
+          <Property Name="pizza_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="PizzaModel.FK_order_details_orders" FromRole="order_details" ToRole="order" />
+          <NavigationProperty Name="pizza" Relationship="PizzaModel.FK_order_details_pizzas" FromRole="order_details" ToRole="pizza" />
         </EntityType>
         <EntityType Name="order">
           <Key>
             <PropertyRef Name="order_id" />
           </Key>
           <Property Name="order_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="date" Type="DateTime" Precision="3" />
-          <Property Name="time" Type="Time" Precision="7" />
-          <NavigationProperty Name="order_details" Relationship="Self.FK_order_details_order_details" FromRole="orders" ToRole="order_details" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="order_details" Relationship="PizzaModel.FK_order_details_orders" FromRole="order" ToRole="order_details" />
         </EntityType>
         <EntityType Name="pizza_types">
           <Key>
             <PropertyRef Name="pizza_type_id" />
           </Key>
-          <Property Name="pizza_type_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ingredients" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="pizzas" Relationship="Self.FK_pizzas_pizza_types" FromRole="pizza_types" ToRole="pizzas" />
+          <Property Name="pizza_type_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ingredients" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="pizzas" Relationship="PizzaModel.FK_pizzas_pizza_types" FromRole="pizza_types" ToRole="pizza" />
         </EntityType>
         <EntityType Name="pizza">
           <Key>
             <PropertyRef Name="pizza_id" />
           </Key>
-          <Property Name="pizza_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="pizza_type_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="size" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="price" Type="Decimal" Precision="28" Scale="0" />
-          <NavigationProperty Name="order_details" Relationship="Self.FK_order_details_pizzas" FromRole="pizzas" ToRole="order_details" />
-          <NavigationProperty Name="pizza_types" Relationship="Self.FK_pizzas_pizza_types" FromRole="pizzas" ToRole="pizza_types" />
+          <Property Name="pizza_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pizza_type_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="size" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="28" Scale="0" />
+          <NavigationProperty Name="order_details" Relationship="PizzaModel.FK_order_details_pizzas" FromRole="pizza" ToRole="order_details" />
+          <NavigationProperty Name="pizza_types" Relationship="PizzaModel.FK_pizzas_pizza_types" FromRole="pizza" ToRole="pizza_types" />
         </EntityType>
-        <Association Name="FK_order_details_order_details">
-          <End Role="orders" Type="Self.order" Multiplicity="0..1" />
-          <End Role="order_details" Type="Self.order_details" Multiplicity="*" />
+        <Association Name="FK_order_details_orders">
+          <End Type="PizzaModel.order" Role="order" Multiplicity="1" />
+          <End Type="PizzaModel.order_details" Role="order_details" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="orders">
+            <Principal Role="order">
               <PropertyRef Name="order_id" />
             </Principal>
             <Dependent Role="order_details">
@@ -153,10 +170,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_order_details_pizzas">
-          <End Role="pizzas" Type="Self.pizza" Multiplicity="0..1" />
-          <End Role="order_details" Type="Self.order_details" Multiplicity="*" />
+          <End Type="PizzaModel.pizza" Role="pizza" Multiplicity="1" />
+          <End Type="PizzaModel.order_details" Role="order_details" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="pizzas">
+            <Principal Role="pizza">
               <PropertyRef Name="pizza_id" />
             </Principal>
             <Dependent Role="order_details">
@@ -165,35 +182,17 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_pizzas_pizza_types">
-          <End Role="pizza_types" Type="Self.pizza_types" Multiplicity="0..1" />
-          <End Role="pizzas" Type="Self.pizza" Multiplicity="*" />
+          <End Type="PizzaModel.pizza_types" Role="pizza_types" Multiplicity="1" />
+          <End Type="PizzaModel.pizza" Role="pizza" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pizza_types">
               <PropertyRef Name="pizza_type_id" />
             </Principal>
-            <Dependent Role="pizzas">
+            <Dependent Role="pizza">
               <PropertyRef Name="pizza_type_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PizzaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="order_details" EntityType="Self.order_details" />
-          <EntitySet Name="orders" EntityType="Self.order" />
-          <EntitySet Name="pizza_types" EntityType="Self.pizza_types" />
-          <EntitySet Name="pizzas" EntityType="Self.pizza" />
-          <AssociationSet Name="FK_order_details_order_details" Association="Self.FK_order_details_order_details">
-            <End Role="orders" EntitySet="orders" />
-            <End Role="order_details" EntitySet="order_details" />
-          </AssociationSet>
-          <AssociationSet Name="FK_order_details_pizzas" Association="Self.FK_order_details_pizzas">
-            <End Role="pizzas" EntitySet="pizzas" />
-            <End Role="order_details" EntitySet="order_details" />
-          </AssociationSet>
-          <AssociationSet Name="FK_pizzas_pizza_types" Association="Self.FK_pizzas_pizza_types">
-            <End Role="pizza_types" EntitySet="pizza_types" />
-            <End Role="pizzas" EntitySet="pizzas" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -203,39 +202,39 @@
           <EntitySetMapping Name="order_details">
             <EntityTypeMapping TypeName="PizzaModel.order_details">
               <MappingFragment StoreEntitySet="order_details">
-                <ScalarProperty Name="order_details_id" ColumnName="order_details_id" />
-                <ScalarProperty Name="order_id" ColumnName="order_id" />
-                <ScalarProperty Name="pizza_id" ColumnName="pizza_id" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="pizza_id" ColumnName="pizza_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="order_details_id" ColumnName="order_details_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="orders">
             <EntityTypeMapping TypeName="PizzaModel.order">
               <MappingFragment StoreEntitySet="orders">
-                <ScalarProperty Name="order_id" ColumnName="order_id" />
-                <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="pizza_types">
             <EntityTypeMapping TypeName="PizzaModel.pizza_types">
               <MappingFragment StoreEntitySet="pizza_types">
-                <ScalarProperty Name="pizza_type_id" ColumnName="pizza_type_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="category" ColumnName="category" />
                 <ScalarProperty Name="ingredients" ColumnName="ingredients" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pizza_type_id" ColumnName="pizza_type_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="pizzas">
             <EntityTypeMapping TypeName="PizzaModel.pizza">
               <MappingFragment StoreEntitySet="pizzas">
-                <ScalarProperty Name="pizza_id" ColumnName="pizza_id" />
-                <ScalarProperty Name="pizza_type_id" ColumnName="pizza_type_id" />
-                <ScalarProperty Name="size" ColumnName="size" />
                 <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="pizza_type_id" ColumnName="pizza_type_id" />
+                <ScalarProperty Name="pizza_id" ColumnName="pizza_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

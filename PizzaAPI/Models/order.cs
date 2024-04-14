@@ -21,8 +21,8 @@ namespace PizzaAPI.Models
         }
     
         public long order_id { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
-        public Nullable<System.TimeSpan> time { get; set; }
+        public System.DateTime date { get; set; }
+        public System.TimeSpan time { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<order_details> order_details { get; set; }

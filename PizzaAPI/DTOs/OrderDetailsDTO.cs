@@ -5,11 +5,12 @@ using System.Web;
 
 namespace PizzaAPI.DTOs
 {
-    public class PizzaDTO
+    public class OrderDetailsDTO
     {
+        public long order_details_id { get; set; }
+        public long order_id { get; set; }
         public string pizza_id { get; set; }
-        public string pizza_type_id { get; set; }
-        public string size { get; set; }
-        public decimal price { get; set; }
+        public long quantity { get; set; }
     }
+
 }

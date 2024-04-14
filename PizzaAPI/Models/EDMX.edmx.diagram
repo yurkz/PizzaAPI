@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="1347d37df13f4686956b411c4ad3b151" Name="Diagram1">
-        <EntityTypeShape EntityType="PizzaModel.order_details" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PizzaModel.order" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PizzaModel.pizza_types" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="PizzaModel.pizza" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="PizzaModel.FK_order_details_order_details" ManuallyRouted="false" />
-        <AssociationConnector Association="PizzaModel.FK_order_details_pizzas" ManuallyRouted="false" />
-        <AssociationConnector Association="PizzaModel.FK_pizzas_pizza_types" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PizzaModel.order_details" Width="1.5" PointX="5.25" PointY="0.875" />
+        <EntityTypeShape EntityType="PizzaModel.order" Width="1.5" PointX="3" PointY="5.125" />
+        <EntityTypeShape EntityType="PizzaModel.pizza_types" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="PizzaModel.pizza" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="PizzaModel.FK_order_details_orders" />
+        <AssociationConnector Association="PizzaModel.FK_order_details_pizzas" />
+        <AssociationConnector Association="PizzaModel.FK_pizzas_pizza_types" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

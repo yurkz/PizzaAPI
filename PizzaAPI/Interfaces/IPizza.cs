@@ -11,7 +11,7 @@ namespace PizzaAPI.Interfaces
     public interface IPizza
     {
         ServiceResponse<List<PizzaDTO>> GetAll();
-        ServiceResponse<PizzaDTO> GetById(string pizza_id);
+        ServiceResponse<PizzaDTO> GetById(PizzaDTO model);
         ServiceResponse<PizzaDTO> AddPizza(PizzaDTO model);
         ServiceResponse<PizzaDTO> DeletePizza(PizzaDTO model);
         ServiceResponse<PizzaDTO> UpdatePizza(PizzaDTO model);

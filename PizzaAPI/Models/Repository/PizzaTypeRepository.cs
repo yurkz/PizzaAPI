@@ -88,28 +88,27 @@ namespace PizzaAPI.Models.Repository
         {
             using (var db = new PizzaEntities())
             {
-                using (var ts = db.Database.BeginTransaction())
+
+                var serviceResponse = new ServiceResponse<List<PizzaTypeDTO>>();
+
+                var pizza_types = db.pizza_types.ToList();
+                List<PizzaTypeDTO> list = new List<PizzaTypeDTO>();
+
+                foreach (var item in pizza_types)
                 {
-                    var serviceResponse = new ServiceResponse<List<PizzaTypeDTO>>();
-
-                    var pizza_types = db.pizza_types.ToList();
-                    List<PizzaTypeDTO> list = new List<PizzaTypeDTO>();
-
-                    foreach (var item in pizza_types)
+                    PizzaTypeDTO dto = new PizzaTypeDTO()
                     {
-                        PizzaTypeDTO dto = new PizzaTypeDTO()
-                        {
-                            category = item.category,
-                            ingredients = item.ingredients,
-                            name = item.name,
-                            pizza_type_id = item.pizza_type_id
-                        };
+                        category = item.category,
+                        ingredients = item.ingredients,
+                        name = item.name,
+                        pizza_type_id = item.pizza_type_id
+                    };
 
-                        list.Add(dto);
-                    }
-                    serviceResponse.Data = list;
-                    return serviceResponse;
+                    list.Add(dto);
                 }
+                serviceResponse.Data = list;
+                return serviceResponse;
+
             }
         }
 
@@ -117,21 +116,20 @@ namespace PizzaAPI.Models.Repository
         {
             using (var db = new PizzaEntities())
             {
-                using (var ts = db.Database.BeginTransaction())
+
+                var serviceResponse = new ServiceResponse<PizzaTypeDTO>();
+                var pizzaType = db.pizza_types.Where(a => a.pizza_type_id == pizza_type_id).SingleOrDefault();
+                if (pizzaType == null)
                 {
-                    var serviceResponse = new ServiceResponse<PizzaTypeDTO>();
-                    var pizzaType = db.pizza_types.Where(a => a.pizza_type_id == pizza_type_id).SingleOrDefault();
-                    if (pizzaType == null)
-                    {
-                        serviceResponse.Success = false;
-                        serviceResponse.Message = "No Data Found";
-                        return serviceResponse;
-                    }
-
-                    serviceResponse.Data = map.MapToDto<PizzaTypeDTO>(pizzaType);
-
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "No Data Found";
                     return serviceResponse;
                 }
+
+                serviceResponse.Data = map.MapToDto<PizzaTypeDTO>(pizzaType);
+
+                return serviceResponse;
+
             }
         }
 

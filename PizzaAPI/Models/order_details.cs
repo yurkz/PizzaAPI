@@ -15,9 +15,9 @@ namespace PizzaAPI.Models
     public partial class order_details
     {
         public long order_details_id { get; set; }
-        public Nullable<long> order_id { get; set; }
+        public long order_id { get; set; }
         public string pizza_id { get; set; }
-        public Nullable<long> quantity { get; set; }
+        public long quantity { get; set; }
     
         public virtual order order { get; set; }
         public virtual pizza pizza { get; set; }
